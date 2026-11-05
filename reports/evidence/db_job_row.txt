@@ -1,0 +1,4 @@
+id  | status |          model_id           | top1_label | score  | cache_hit | inference_ms 
+-----+--------+-----------------------------+------------+--------+-----------+--------------
+ 264 | done   | artifacts/m3_full_aug_light | bean_rust  | 0.9946 | f         |      2112.65
+(1 row)

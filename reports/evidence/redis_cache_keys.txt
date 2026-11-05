@@ -1,0 +1,6 @@
+vision:classify:3ff248a5da4746c4:ba062575c968358712e06e1314cd7914ed455865c7a3b705c3d22ac87f56d68f
+1
+# Keyspace
+db1:keys=1,expires=1,avg_ttl=599937,subexpiry=0
+db2:keys=5,expires=0,avg_ttl=0,subexpiry=0
+db3:keys=288,expires=288,avg_ttl=82969253,subexpiry=0

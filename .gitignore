@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+dataset/
+artifacts/*
+!artifacts/.gitkeep
+media/jobs/*
+!media/jobs/.gitkeep
+*.db
+
+# 학습 콘솔 산출물
+logs/
+.env.bak

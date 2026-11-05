@@ -1,0 +1,30 @@
+id  | status |       model       |    top1_label     | score | cache_hit | inference_ms |                    error                    
+-----+--------+-------------------+-------------------+-------+-----------+--------------+---------------------------------------------
+ 264 | done   | m3_full_aug_light | bean_rust         | 0.995 | f         |      2112.65 | 
+ 265 | done   | m3_full_aug_light | angular_leaf_spot | 1.000 | f         |       2110.9 | 
+ 266 | failed | m3_full_aug_light |                   |       |           |              | 작업 큐 등록 실패: Redis 연결을 확인하세요.
+ 267 | done   | m3_full_aug_light | angular_leaf_spot | 1.000 | f         |        17.36 | 
+ 268 | done   | m3_full_aug_light | healthy           | 0.991 | f         |        16.47 | 
+ 269 | done   | m3_full_aug_light | bean_rust         | 0.709 | f         |        16.25 | 
+ 270 | done   | m3_full_aug_light | bean_rust         | 0.709 | t         |              | 
+ 271 | done   | m3_full_aug_light | angular_leaf_spot | 0.618 | f         |        19.73 | 
+ 272 | done   | m3_full_aug_light | angular_leaf_spot | 0.618 | t         |              | 
+ 273 | done   | m3_full_aug_light | healthy           | 1.000 | f         |        19.15 | 
+ 274 | done   | m3_full_aug_light | healthy           | 1.000 | t         |              | 
+ 275 | done   | m3_full_aug_light | angular_leaf_spot | 1.000 | f         |        18.45 | 
+ 276 | done   | m3_full_aug_light | angular_leaf_spot | 1.000 | t         |              | 
+ 277 | done   | m3_full_aug_light | bean_rust         | 0.987 | f         |        20.02 | 
+ 278 | done   | m3_full_aug_light | bean_rust         | 0.987 | t         |              | 
+ 279 | done   | m3_full_aug_light | healthy           | 0.991 | f         |        16.36 | 
+ 280 | done   | m3_full_aug_light | bean_rust         | 0.709 | f         |        17.53 | 
+ 281 | done   | m3_full_aug_light | bean_rust         | 0.709 | t         |              | 
+ 282 | done   | m3_full_aug_light | angular_leaf_spot | 0.618 | f         |        16.94 | 
+ 283 | done   | m3_full_aug_light | angular_leaf_spot | 0.618 | t         |              | 
+ 284 | done   | m3_full_aug_light | healthy           | 1.000 | f         |        17.57 | 
+ 285 | done   | m3_full_aug_light | healthy           | 1.000 | t         |              | 
+ 286 | done   | m3_full_aug_light | angular_leaf_spot | 1.000 | f         |        18.31 | 
+ 287 | done   | m3_full_aug_light | angular_leaf_spot | 1.000 | t         |              | 
+ 288 | done   | m3_full_aug_light | bean_rust         | 0.987 | f         |           18 | 
+ 289 | done   | m3_full_aug_light | bean_rust         | 0.987 | t         |              | 
+ 290 | done   | m3_full_aug_light | bean_rust         | 0.996 | t         |              | 
+(27 rows)

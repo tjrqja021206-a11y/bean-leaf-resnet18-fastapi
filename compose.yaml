@@ -1,0 +1,95 @@
+services:
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vision_user
+      POSTGRES_PASSWORD: vision_pass
+      POSTGRES_DB: vision_db
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vision_user -d vision_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment: &app_environment
+      DATABASE_URL: postgresql+psycopg://vision_user:vision_pass@postgres:5432/vision_db
+      REDIS_CACHE_URL: redis://redis:6379/1
+      CELERY_BROKER_URL: redis://redis:6379/2
+      CELERY_RESULT_BACKEND: redis://redis:6379/3
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes: &app_volumes
+      - ./artifacts:/app/artifacts
+      - ./media/jobs:/app/media/jobs
+      - hf_cache:/app/.cache/huggingface
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment: *app_environment
+    command: ["celery", "-A", "ai.celery_app:celery_app", "worker", "--loglevel=info", "--pool=solo", "--concurrency=1"]
+    volumes: *app_volumes
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+
+  trainer:
+    profiles: ["train"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    command: ["python", "-m", "training.finetune", "--data", "dataset", "--output", "artifacts/beans_resnet18", "--epochs", "3", "--batch-size", "8", "--freeze-backbone"]
+    volumes:
+      - ./dataset:/app/dataset:ro
+      - ./artifacts:/app/artifacts
+      - hf_cache:/app/.cache/huggingface
+
+volumes:
+  redis_data:
+  postgres_data:
+  hf_cache:

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Vision AI 분류 실습{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+ <main class="wrap">
+  <header><h1>ResNet-18 이미지 분류 실습</h1>
+   <nav><a href="/vision/sync/">동기</a> · <a href="/vision/async/">비동기</a> · <a href="/docs">Swagger UI</a></nav>
+  </header>
+  {% block content %}{% endblock %}
+ </main>
+</body>
+</html>

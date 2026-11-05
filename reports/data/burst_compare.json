@@ -1,0 +1,1315 @@
+{
+  "config": {
+    "model": "m3_full_aug_light",
+    "n": 20,
+    "cache": "BOTH",
+    "mode": "burst",
+    "seed": 7,
+    "picked": false
+  },
+  "model": {
+    "name": "m3_full_aug_light",
+    "order": 3,
+    "title": "③ Full + 증강 light",
+    "short": "② + 데이터 증강 light",
+    "changes": [
+      {
+        "k": "출력층",
+        "v": "ImageNet 1,000클래스 → 콩잎 3클래스(angular_leaf_spot · bean_rust · healthy)로 교체"
+      },
+      {
+        "k": "학습 방식",
+        "v": "전체 가중치 학습 (Full Fine-tuning)"
+      },
+      {
+        "k": "학습 설정",
+        "v": "10에폭 · 배치 16 · lr 0.0001 · 시드 42"
+      },
+      {
+        "k": "데이터 증강",
+        "v": "light — 뒤집기 · 회전 15° · 약한 밝기 변화"
+      },
+      {
+        "k": "학습 데이터",
+        "v": "train 1034장 · val 133장 (콩잎 3클래스)"
+      },
+      {
+        "k": "저장된 가중치",
+        "v": "8에폭 시점 (Val 정확도 1.0000)"
+      }
+    ],
+    "vs_parent": {
+      "parent": "m2_full",
+      "title": "② Full",
+      "diffs": [
+        "증강 없음 → light"
+      ]
+    },
+    "best_val": 1.0,
+    "test_accuracy": 0.9609,
+    "test_correct": 123,
+    "test_total": 128,
+    "note": "",
+    "serving": true
+  },
+  "runs": [
+    {
+      "cache": "MISS",
+      "mode": "burst",
+      "summary": {
+        "n": 20,
+        "labeled": 20,
+        "sync": {
+          "correct": 20,
+          "http": {
+            "median": 255.6,
+            "mean": 244.4,
+            "p95": 273.0,
+            "max": 275.2,
+            "min": 171.5
+          },
+          "inference_ms_median": 193.2,
+          "cache_hits": 0,
+          "wall_ms": 284.9
+        },
+        "async": {
+          "correct": 20,
+          "accept": {
+            "median": 247.9,
+            "mean": 276.1,
+            "p95": 368.2,
+            "max": 373.9,
+            "min": 163.1
+          },
+          "final": {
+            "median": 501.5,
+            "mean": 516.5,
+            "p95": 708.9,
+            "max": 713.3,
+            "min": 386.0
+          },
+          "inference_ms_median": 16.8,
+          "cache_hits": 0,
+          "wall_ms": 743.9,
+          "accept_wall_ms": 383.2
+        },
+        "agreement": {
+          "label_match": 20,
+          "max_score_diff": 0.0
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "id": "test/healthy/healthy_test.12.jpg",
+          "name": "healthy_test.12.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 171.5,
+            "label": "healthy",
+            "score": 0.9989,
+            "all": {
+              "healthy": 0.9989,
+              "angular_leaf_spot": 0.001,
+              "bean_rust": 0.0001
+            },
+            "inference_ms": 160.74,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 163.1,
+            "final_ms": 386.0,
+            "label": "healthy",
+            "score": 0.9989,
+            "inference_ms": 18.26,
+            "cache_hit": false,
+            "job_id": 294,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 1,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.4.jpg",
+          "name": "angular_leaf_spot_test.4.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 223.9,
+            "label": "angular_leaf_spot",
+            "score": 0.99354,
+            "all": {
+              "angular_leaf_spot": 0.9935,
+              "bean_rust": 0.0065,
+              "healthy": 0.0
+            },
+            "inference_ms": 206.13,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 221.4,
+            "final_ms": 387.5,
+            "label": "angular_leaf_spot",
+            "score": 0.99354,
+            "inference_ms": 15.28,
+            "cache_hit": false,
+            "job_id": 296,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 2,
+          "id": "test/bean_rust/bean_rust_test.13.jpg",
+          "name": "bean_rust_test.13.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 197.9,
+            "label": "bean_rust",
+            "score": 0.99756,
+            "all": {
+              "bean_rust": 0.9976,
+              "angular_leaf_spot": 0.0016,
+              "healthy": 0.0008
+            },
+            "inference_ms": 178.15,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 193.7,
+            "final_ms": 388.9,
+            "label": "bean_rust",
+            "score": 0.99756,
+            "inference_ms": 18.17,
+            "cache_hit": false,
+            "job_id": 295,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 3,
+          "id": "test/healthy/healthy_test.22.jpg",
+          "name": "healthy_test.22.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 210.8,
+            "label": "healthy",
+            "score": 0.99996,
+            "all": {
+              "healthy": 1.0,
+              "bean_rust": 0.0,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": 187.86,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 235.8,
+            "final_ms": 391.7,
+            "label": "healthy",
+            "score": 0.99996,
+            "inference_ms": 20.65,
+            "cache_hit": false,
+            "job_id": 297,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 4,
+          "id": "test/bean_rust/bean_rust_test.20.jpg",
+          "name": "bean_rust_test.20.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 219.5,
+            "label": "bean_rust",
+            "score": 0.99816,
+            "all": {
+              "bean_rust": 0.9982,
+              "angular_leaf_spot": 0.0017,
+              "healthy": 0.0001
+            },
+            "inference_ms": 194.08,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 309.4,
+            "final_ms": 524.6,
+            "label": "bean_rust",
+            "score": 0.99816,
+            "inference_ms": 16.65,
+            "cache_hit": false,
+            "job_id": 302,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 5,
+          "id": "test/healthy/healthy_test.32.jpg",
+          "name": "healthy_test.32.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 249.5,
+            "label": "healthy",
+            "score": 0.99999,
+            "all": {
+              "healthy": 1.0,
+              "angular_leaf_spot": 0.0,
+              "bean_rust": 0.0
+            },
+            "inference_ms": 218.33,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 234.5,
+            "final_ms": 397.9,
+            "label": "healthy",
+            "score": 0.99999,
+            "inference_ms": 16.5,
+            "cache_hit": false,
+            "job_id": 300,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 6,
+          "id": "test/bean_rust/bean_rust_test.11.jpg",
+          "name": "bean_rust_test.11.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 235.8,
+            "label": "bean_rust",
+            "score": 0.68727,
+            "all": {
+              "bean_rust": 0.6873,
+              "healthy": 0.3127,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": 196.53,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 247.2,
+            "final_ms": 466.0,
+            "label": "bean_rust",
+            "score": 0.68727,
+            "inference_ms": 15.28,
+            "cache_hit": false,
+            "job_id": 301,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 7,
+          "id": "test/bean_rust/bean_rust_test.38.jpg",
+          "name": "bean_rust_test.38.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 253.6,
+            "label": "bean_rust",
+            "score": 0.99991,
+            "all": {
+              "bean_rust": 0.9999,
+              "healthy": 0.0001,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": 213.79,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 242.5,
+            "final_ms": 467.8,
+            "label": "bean_rust",
+            "score": 0.99991,
+            "inference_ms": 18.06,
+            "cache_hit": false,
+            "job_id": 299,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 8,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.14.jpg",
+          "name": "angular_leaf_spot_test.14.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 230.7,
+            "label": "angular_leaf_spot",
+            "score": 0.98511,
+            "all": {
+              "angular_leaf_spot": 0.9851,
+              "bean_rust": 0.0149,
+              "healthy": 0.0
+            },
+            "inference_ms": 180.51,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 248.7,
+            "final_ms": 527.3,
+            "label": "angular_leaf_spot",
+            "score": 0.98511,
+            "inference_ms": 18.0,
+            "cache_hit": false,
+            "job_id": 304,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 9,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.12.jpg",
+          "name": "angular_leaf_spot_test.12.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 257.5,
+            "label": "angular_leaf_spot",
+            "score": 0.9992,
+            "all": {
+              "angular_leaf_spot": 0.9992,
+              "bean_rust": 0.0006,
+              "healthy": 0.0002
+            },
+            "inference_ms": 214.29,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 223.7,
+            "final_ms": 408.2,
+            "label": "angular_leaf_spot",
+            "score": 0.9992,
+            "inference_ms": 16.38,
+            "cache_hit": false,
+            "job_id": 298,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 10,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.31.jpg",
+          "name": "angular_leaf_spot_test.31.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 275.2,
+            "label": "angular_leaf_spot",
+            "score": 1.0,
+            "all": {
+              "angular_leaf_spot": 1.0,
+              "bean_rust": 0.0,
+              "healthy": 0.0
+            },
+            "inference_ms": 196.52,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 333.5,
+            "final_ms": 610.5,
+            "label": "angular_leaf_spot",
+            "score": 1.0,
+            "inference_ms": 14.37,
+            "cache_hit": false,
+            "job_id": 307,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 11,
+          "id": "test/bean_rust/bean_rust_test.42.jpg",
+          "name": "bean_rust_test.42.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 265.5,
+            "label": "bean_rust",
+            "score": 0.9927,
+            "all": {
+              "bean_rust": 0.9927,
+              "healthy": 0.0071,
+              "angular_leaf_spot": 0.0002
+            },
+            "inference_ms": 208.85,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 373.9,
+            "final_ms": 713.3,
+            "label": "bean_rust",
+            "score": 0.9927,
+            "inference_ms": 16.85,
+            "cache_hit": false,
+            "job_id": 312,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 12,
+          "id": "test/healthy/healthy_test.33.jpg",
+          "name": "healthy_test.33.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 237.6,
+            "label": "healthy",
+            "score": 0.99727,
+            "all": {
+              "healthy": 0.9973,
+              "bean_rust": 0.0027,
+              "angular_leaf_spot": 0.0001
+            },
+            "inference_ms": 185.38,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 326.6,
+            "final_ms": 614.3,
+            "label": "healthy",
+            "score": 0.99727,
+            "inference_ms": 15.4,
+            "cache_hit": false,
+            "job_id": 306,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 13,
+          "id": "test/healthy/healthy_test.40.jpg",
+          "name": "healthy_test.40.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 273.0,
+            "label": "healthy",
+            "score": 0.98215,
+            "all": {
+              "healthy": 0.9821,
+              "angular_leaf_spot": 0.0165,
+              "bean_rust": 0.0013
+            },
+            "inference_ms": 199.95,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 227.4,
+            "final_ms": 415.5,
+            "label": "healthy",
+            "score": 0.98215,
+            "inference_ms": 19.21,
+            "cache_hit": false,
+            "job_id": 303,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 14,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.27.jpg",
+          "name": "angular_leaf_spot_test.27.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 257.5,
+            "label": "angular_leaf_spot",
+            "score": 0.99052,
+            "all": {
+              "angular_leaf_spot": 0.9905,
+              "bean_rust": 0.0074,
+              "healthy": 0.002
+            },
+            "inference_ms": 192.52,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 237.4,
+            "final_ms": 478.3,
+            "label": "angular_leaf_spot",
+            "score": 0.99052,
+            "inference_ms": 15.49,
+            "cache_hit": false,
+            "job_id": 310,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 15,
+          "id": "test/bean_rust/bean_rust_test.10.jpg",
+          "name": "bean_rust_test.10.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 260.6,
+            "label": "bean_rust",
+            "score": 0.96605,
+            "all": {
+              "bean_rust": 0.966,
+              "angular_leaf_spot": 0.0255,
+              "healthy": 0.0085
+            },
+            "inference_ms": 189.33,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 334.8,
+            "final_ms": 651.4,
+            "label": "bean_rust",
+            "score": 0.96605,
+            "inference_ms": 16.76,
+            "cache_hit": false,
+            "job_id": 309,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 16,
+          "id": "test/healthy/healthy_test.9.jpg",
+          "name": "healthy_test.9.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 270.9,
+            "label": "healthy",
+            "score": 0.99995,
+            "all": {
+              "healthy": 1.0,
+              "bean_rust": 0.0,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": 193.88,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 323.5,
+            "final_ms": 577.0,
+            "label": "healthy",
+            "score": 0.99995,
+            "inference_ms": 18.83,
+            "cache_hit": false,
+            "job_id": 305,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 17,
+          "id": "test/bean_rust/bean_rust_test.3.jpg",
+          "name": "bean_rust_test.3.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 265.6,
+            "label": "bean_rust",
+            "score": 0.68131,
+            "all": {
+              "bean_rust": 0.6813,
+              "angular_leaf_spot": 0.3168,
+              "healthy": 0.0019
+            },
+            "inference_ms": 183.99,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 310.1,
+            "final_ms": 534.6,
+            "label": "bean_rust",
+            "score": 0.68131,
+            "inference_ms": 16.17,
+            "cache_hit": false,
+            "job_id": 308,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 18,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.11.jpg",
+          "name": "angular_leaf_spot_test.11.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 263.1,
+            "label": "angular_leaf_spot",
+            "score": 0.99988,
+            "all": {
+              "angular_leaf_spot": 0.9999,
+              "bean_rust": 0.0001,
+              "healthy": 0.0
+            },
+            "inference_ms": 179.32,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 366.5,
+            "final_ms": 681.1,
+            "label": "angular_leaf_spot",
+            "score": 0.99988,
+            "inference_ms": 17.8,
+            "cache_hit": false,
+            "job_id": 311,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 19,
+          "id": "test/healthy/healthy_test.13.jpg",
+          "name": "healthy_test.13.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 268.2,
+            "label": "healthy",
+            "score": 0.99958,
+            "all": {
+              "healthy": 0.9996,
+              "angular_leaf_spot": 0.0004,
+              "bean_rust": 0.0
+            },
+            "inference_ms": 191.97,
+            "cache_hit": false,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 368.2,
+            "final_ms": 708.9,
+            "label": "healthy",
+            "score": 0.99958,
+            "inference_ms": 17.25,
+            "cache_hit": false,
+            "job_id": 313,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        }
+      ]
+    },
+    {
+      "cache": "HIT",
+      "mode": "burst",
+      "summary": {
+        "n": 20,
+        "labeled": 20,
+        "sync": {
+          "correct": 20,
+          "http": {
+            "median": 17.5,
+            "mean": 17.9,
+            "p95": 27.1,
+            "max": 28.6,
+            "min": 10.7
+          },
+          "inference_ms_median": null,
+          "cache_hits": 20,
+          "wall_ms": 31.1
+        },
+        "async": {
+          "correct": 20,
+          "accept": {
+            "median": 98.6,
+            "mean": 88.1,
+            "p95": 106.4,
+            "max": 109.3,
+            "min": 24.4
+          },
+          "final": {
+            "median": 135.2,
+            "mean": 143.0,
+            "p95": 180.7,
+            "max": 180.9,
+            "min": 116.2
+          },
+          "inference_ms_median": null,
+          "cache_hits": 20,
+          "wall_ms": 212.5,
+          "accept_wall_ms": 113.5
+        },
+        "agreement": {
+          "label_match": 20,
+          "max_score_diff": 0.0
+        }
+      },
+      "rows": [
+        {
+          "i": 0,
+          "id": "test/healthy/healthy_test.12.jpg",
+          "name": "healthy_test.12.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 10.7,
+            "label": "healthy",
+            "score": 0.9989,
+            "all": {
+              "healthy": 0.9989,
+              "angular_leaf_spot": 0.001,
+              "bean_rust": 0.0001
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 56.6,
+            "final_ms": 116.2,
+            "label": "healthy",
+            "score": 0.9989,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 315,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 1,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.4.jpg",
+          "name": "angular_leaf_spot_test.4.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 13.0,
+            "label": "angular_leaf_spot",
+            "score": 0.99354,
+            "all": {
+              "angular_leaf_spot": 0.9935,
+              "bean_rust": 0.0065,
+              "healthy": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 24.4,
+            "final_ms": 118.0,
+            "label": "angular_leaf_spot",
+            "score": 0.99354,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 314,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 2,
+          "id": "test/bean_rust/bean_rust_test.13.jpg",
+          "name": "bean_rust_test.13.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 28.6,
+            "label": "bean_rust",
+            "score": 0.99756,
+            "all": {
+              "bean_rust": 0.9976,
+              "angular_leaf_spot": 0.0016,
+              "healthy": 0.0008
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 52.8,
+            "final_ms": 119.6,
+            "label": "bean_rust",
+            "score": 0.99756,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 316,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 3,
+          "id": "test/healthy/healthy_test.22.jpg",
+          "name": "healthy_test.22.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 21.2,
+            "label": "healthy",
+            "score": 0.99996,
+            "all": {
+              "healthy": 1.0,
+              "bean_rust": 0.0,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 68.8,
+            "final_ms": 121.1,
+            "label": "healthy",
+            "score": 0.99996,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 317,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 4,
+          "id": "test/bean_rust/bean_rust_test.20.jpg",
+          "name": "bean_rust_test.20.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 27.1,
+            "label": "bean_rust",
+            "score": 0.99816,
+            "all": {
+              "bean_rust": 0.9982,
+              "angular_leaf_spot": 0.0017,
+              "healthy": 0.0001
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 109.3,
+            "final_ms": 180.7,
+            "label": "bean_rust",
+            "score": 0.99816,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 329,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 5,
+          "id": "test/healthy/healthy_test.32.jpg",
+          "name": "healthy_test.32.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 18.3,
+            "label": "healthy",
+            "score": 0.99999,
+            "all": {
+              "healthy": 1.0,
+              "angular_leaf_spot": 0.0,
+              "bean_rust": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 90.8,
+            "final_ms": 124.5,
+            "label": "healthy",
+            "score": 0.99999,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 320,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 6,
+          "id": "test/bean_rust/bean_rust_test.11.jpg",
+          "name": "bean_rust_test.11.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 16.7,
+            "label": "bean_rust",
+            "score": 0.68727,
+            "all": {
+              "bean_rust": 0.6873,
+              "healthy": 0.3127,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 78.1,
+            "final_ms": 126.4,
+            "label": "bean_rust",
+            "score": 0.68727,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 318,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 7,
+          "id": "test/bean_rust/bean_rust_test.38.jpg",
+          "name": "bean_rust_test.38.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 21.4,
+            "label": "bean_rust",
+            "score": 0.99991,
+            "all": {
+              "bean_rust": 0.9999,
+              "healthy": 0.0001,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 106.4,
+            "final_ms": 180.9,
+            "label": "bean_rust",
+            "score": 0.99991,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 325,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 8,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.14.jpg",
+          "name": "angular_leaf_spot_test.14.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 17.8,
+            "label": "angular_leaf_spot",
+            "score": 0.98511,
+            "all": {
+              "angular_leaf_spot": 0.9851,
+              "bean_rust": 0.0149,
+              "healthy": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 99.1,
+            "final_ms": 129.9,
+            "label": "angular_leaf_spot",
+            "score": 0.98511,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 321,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 9,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.12.jpg",
+          "name": "angular_leaf_spot_test.12.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 20.0,
+            "label": "angular_leaf_spot",
+            "score": 0.9992,
+            "all": {
+              "angular_leaf_spot": 0.9992,
+              "bean_rust": 0.0006,
+              "healthy": 0.0002
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 102.5,
+            "final_ms": 131.4,
+            "label": "angular_leaf_spot",
+            "score": 0.9992,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 328,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 10,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.31.jpg",
+          "name": "angular_leaf_spot_test.31.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 17.5,
+            "label": "angular_leaf_spot",
+            "score": 1.0,
+            "all": {
+              "angular_leaf_spot": 1.0,
+              "bean_rust": 0.0,
+              "healthy": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 100.3,
+            "final_ms": 133.3,
+            "label": "angular_leaf_spot",
+            "score": 1.0,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 326,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 11,
+          "id": "test/bean_rust/bean_rust_test.42.jpg",
+          "name": "bean_rust_test.42.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 19.5,
+            "label": "bean_rust",
+            "score": 0.9927,
+            "all": {
+              "bean_rust": 0.9927,
+              "healthy": 0.0071,
+              "angular_leaf_spot": 0.0002
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 78.8,
+            "final_ms": 134.6,
+            "label": "bean_rust",
+            "score": 0.9927,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 319,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 12,
+          "id": "test/healthy/healthy_test.33.jpg",
+          "name": "healthy_test.33.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 17.9,
+            "label": "healthy",
+            "score": 0.99727,
+            "all": {
+              "healthy": 0.9973,
+              "bean_rust": 0.0027,
+              "angular_leaf_spot": 0.0001
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 94.9,
+            "final_ms": 135.9,
+            "label": "healthy",
+            "score": 0.99727,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 322,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 13,
+          "id": "test/healthy/healthy_test.40.jpg",
+          "name": "healthy_test.40.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 17.5,
+            "label": "healthy",
+            "score": 0.98215,
+            "all": {
+              "healthy": 0.9821,
+              "angular_leaf_spot": 0.0165,
+              "bean_rust": 0.0013
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 103.5,
+            "final_ms": 178.8,
+            "label": "healthy",
+            "score": 0.98215,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 332,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 14,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.27.jpg",
+          "name": "angular_leaf_spot_test.27.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 14.8,
+            "label": "angular_leaf_spot",
+            "score": 0.99052,
+            "all": {
+              "angular_leaf_spot": 0.9905,
+              "bean_rust": 0.0074,
+              "healthy": 0.002
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 101.8,
+            "final_ms": 180.0,
+            "label": "angular_leaf_spot",
+            "score": 0.99052,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 327,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 15,
+          "id": "test/bean_rust/bean_rust_test.10.jpg",
+          "name": "bean_rust_test.10.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 16.5,
+            "label": "bean_rust",
+            "score": 0.96605,
+            "all": {
+              "bean_rust": 0.966,
+              "angular_leaf_spot": 0.0255,
+              "healthy": 0.0085
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 98.3,
+            "final_ms": 140.7,
+            "label": "bean_rust",
+            "score": 0.96605,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 330,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 16,
+          "id": "test/healthy/healthy_test.9.jpg",
+          "name": "healthy_test.9.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 14.7,
+            "label": "healthy",
+            "score": 0.99995,
+            "all": {
+              "healthy": 1.0,
+              "bean_rust": 0.0,
+              "angular_leaf_spot": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 98.3,
+            "final_ms": 141.8,
+            "label": "healthy",
+            "score": 0.99995,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 331,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 17,
+          "id": "test/bean_rust/bean_rust_test.3.jpg",
+          "name": "bean_rust_test.3.jpg",
+          "truth": "bean_rust",
+          "sync": {
+            "ms": 15.7,
+            "label": "bean_rust",
+            "score": 0.68131,
+            "all": {
+              "bean_rust": 0.6813,
+              "angular_leaf_spot": 0.3168,
+              "healthy": 0.0019
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 99.4,
+            "final_ms": 143.6,
+            "label": "bean_rust",
+            "score": 0.68131,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 323,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 18,
+          "id": "test/angular_leaf_spot/angular_leaf_spot_test.11.jpg",
+          "name": "angular_leaf_spot_test.11.jpg",
+          "truth": "angular_leaf_spot",
+          "sync": {
+            "ms": 14.8,
+            "label": "angular_leaf_spot",
+            "score": 0.99988,
+            "all": {
+              "angular_leaf_spot": 0.9999,
+              "bean_rust": 0.0001,
+              "healthy": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 98.9,
+            "final_ms": 145.1,
+            "label": "angular_leaf_spot",
+            "score": 0.99988,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 324,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        },
+        {
+          "i": 19,
+          "id": "test/healthy/healthy_test.13.jpg",
+          "name": "healthy_test.13.jpg",
+          "truth": "healthy",
+          "sync": {
+            "ms": 14.1,
+            "label": "healthy",
+            "score": 0.99958,
+            "all": {
+              "healthy": 0.9996,
+              "angular_leaf_spot": 0.0004,
+              "bean_rust": 0.0
+            },
+            "inference_ms": null,
+            "cache_hit": true,
+            "model_id": "artifacts/m3_full_aug_light"
+          },
+          "async": {
+            "accept_ms": 99.0,
+            "final_ms": 178.0,
+            "label": "healthy",
+            "score": 0.99958,
+            "inference_ms": null,
+            "cache_hit": true,
+            "job_id": 333,
+            "model_id": "artifacts/m3_full_aug_light"
+          }
+        }
+      ]
+    }
+  ],
+  "poll_ms": 20,
+  "finished": "2026-11-04 16:57:30"
+}

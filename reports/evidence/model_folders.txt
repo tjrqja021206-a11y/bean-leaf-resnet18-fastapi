@@ -1,0 +1,28 @@
+== artifacts/m1_head_only
+-rw-r--r-- 1 user1 user1 808 Nov  4 11:27 config.json
+-rw------- 1 user1 user1 43M Nov  4 11:27 model.safetensors
+-rw-r--r-- 1 user1 user1 352 Nov  4 11:27 preprocessor_config.json
+-rw-r--r-- 1 user1 user1 381 Nov  4 15:50 run_meta.json
+-rw-r--r-- 1 user1 user1 717 Nov  4 15:15 test_eval.json
+-rw-r--r-- 1 user1 user1 468 Nov  4 11:28 training_report.json
+== artifacts/m2_full
+-rw-r--r-- 1 user1 user1  808 Nov  4 14:42 config.json
+-rw------- 1 user1 user1  43M Nov  4 14:42 model.safetensors
+-rw-r--r-- 1 user1 user1  352 Nov  4 14:42 preprocessor_config.json
+-rw-r--r-- 1 user1 user1  367 Nov  4 15:50 run_meta.json
+-rw-r--r-- 1 user1 user1  714 Nov  4 15:35 test_eval.json
+-rw-r--r-- 1 user1 user1 1.1K Nov  4 14:43 training_report.json
+== artifacts/m3_full_aug_light
+-rw-r--r-- 1 user1 user1  808 Nov  4 15:17 config.json
+-rw------- 1 user1 user1  43M Nov  4 15:17 model.safetensors
+-rw-r--r-- 1 user1 user1  352 Nov  4 15:17 preprocessor_config.json
+-rw-r--r-- 1 user1 user1  120 Nov  4 15:50 run_meta.json
+-rw-r--r-- 1 user1 user1  716 Nov  4 15:17 test_eval.json
+-rw-r--r-- 1 user1 user1 1.3K Nov  4 15:17 training_report.json
+== artifacts/m4_full_aug_medium
+-rw-r--r-- 1 user1 user1  808 Nov  4 15:23 config.json
+-rw------- 1 user1 user1  43M Nov  4 15:23 model.safetensors
+-rw-r--r-- 1 user1 user1  352 Nov  4 15:23 preprocessor_config.json
+-rw-r--r-- 1 user1 user1  122 Nov  4 15:50 run_meta.json
+-rw-r--r-- 1 user1 user1  711 Nov  4 15:24 test_eval.json
+-rw-r--r-- 1 user1 user1 1.3K Nov  4 15:24 training_report.json

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}동기식 이미지 분류{% endblock %}
+{% block content %}
+<section class="panel"><h2>동기식: 분석을 마칠 때까지 응답을 기다립니다</h2>
+<p>원본 모델은 ImageNet 사물 분류용입니다. 정상/불량 분류는 Fine-tuning 후에만 사용할 수 있습니다.</p>
+<input id="image" type="file" accept="image/jpeg,image/png,image/webp">
+<button id="send">동기 분류</button>
+<img id="preview" class="preview" hidden>
+<p id="state">이미지를 선택하세요.</p><pre id="output">{}</pre></section>
+<script>
+const fileEl=document.getElementById('image');
+fileEl.onchange=()=>{const f=fileEl.files[0];if(f){const p=document.getElementById('preview');p.src=URL.createObjectURL(f);p.hidden=false;}};
+document.getElementById('send').onclick=async()=>{
+ const file=fileEl.files[0];if(!file){alert('이미지를 선택하세요');return;}
+ const button=document.getElementById('send');button.disabled=true;
+ const state=document.getElementById('state');const out=document.getElementById('output');
+ const form=new FormData();form.append('image',file);const started=performance.now();
+ state.textContent='서버에서 추론 중...';
+ try{const res=await fetch('/api/sync/classify/',{method:'POST',body:form});const data=await res.json();
+  state.textContent=`HTTP ${res.status} / 응답까지 ${Math.round(performance.now()-started)}ms`;
+  out.textContent=JSON.stringify(data,null,2);
+ }catch(err){state.textContent=`요청 실패: ${err}`;}finally{button.disabled=false;}
+};
+</script>
+{% endblock %}

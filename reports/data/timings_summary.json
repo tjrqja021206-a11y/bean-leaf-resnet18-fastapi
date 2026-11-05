@@ -1,0 +1,46 @@
+{
+  "sync_MISS": {
+    "n": 5,
+    "http_ms_median": 22.6,
+    "http_ms_mean": 23.1,
+    "final_ms_median": 22.6,
+    "final_ms_mean": 23.1,
+    "inference_ms_median": 17.8,
+    "cache_hit_reported": [
+      "False"
+    ]
+  },
+  "sync_HIT": {
+    "n": 5,
+    "http_ms_median": 2.2,
+    "http_ms_mean": 2.2,
+    "final_ms_median": 2.2,
+    "final_ms_mean": 2.2,
+    "inference_ms_median": null,
+    "cache_hit_reported": [
+      "True"
+    ]
+  },
+  "async_MISS": {
+    "n": 5,
+    "http_ms_median": 8.5,
+    "http_ms_mean": 8.5,
+    "final_ms_median": 63.4,
+    "final_ms_mean": 63.7,
+    "inference_ms_median": 17.6,
+    "cache_hit_reported": [
+      "False"
+    ]
+  },
+  "async_HIT": {
+    "n": 5,
+    "http_ms_median": 7.1,
+    "http_ms_mean": 6.9,
+    "final_ms_median": 65.7,
+    "final_ms_mean": 65.2,
+    "inference_ms_median": null,
+    "cache_hit_reported": [
+      "True"
+    ]
+  }
+}

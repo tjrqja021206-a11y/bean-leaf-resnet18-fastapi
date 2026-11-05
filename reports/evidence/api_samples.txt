@@ -1,0 +1,29 @@
+사진: dataset/test/bean_rust/bean_rust_test.25.jpg
+
+### POST /api/sync/classify/ (캐시 MISS)
+HTTP 200
+{"model_id":"artifacts/m3_full_aug_light","top1":{"label":"bean_rust","score":0.9956575632095337},"all":[{"label":"bean_rust","score":0.9956575632095337},{"label":"angular_leaf_spot","score":0.0029432561714202166},{"label":"healthy","score":0.0013991422019898891}],"inference_ms":17.48,"cache_hit":false}
+
+### POST /api/sync/classify/ (같은 사진, 캐시 HIT)
+HTTP 200
+{"model_id":"artifacts/m3_full_aug_light","top1":{"label":"bean_rust","score":0.9956575632095337},"all":[{"label":"bean_rust","score":0.9956575632095337},{"label":"angular_leaf_spot","score":0.0029432561714202166},{"label":"healthy","score":0.0013991422019898891}],"inference_ms":null,"cache_hit":true}
+
+### POST /api/async/classify/
+HTTP 202
+{"job_id":290,"status":"queued","check_url":"/api/async/jobs/290/"}
+
+### GET /api/async/jobs/290/
+HTTP 200
+{"job_id":290,"status":"done","model_id":"artifacts/m3_full_aug_light","top1":{"label":"bean_rust","score":0.9956575632095337},"all":[{"label":"bean_rust","score":0.9956575632095337},{"label":"angular_leaf_spot","score":0.0029432561714202166},{"label":"healthy","score":0.0013991422019898891}],"inference_ms":null,"cache_hit":true,"error_message":null}
+
+### 오류: .txt 업로드 (동기)
+HTTP 400
+{"detail":"올바른 이미지 파일이 아닙니다."}
+
+### 오류: 없는 작업 번호
+HTTP 404
+{"detail":"해당 작업이 없습니다."}
+
+### 오류: 5MB 초과 (동기)
+HTTP 413
+{"detail":"5MB 이하 파일만 허용합니다."}

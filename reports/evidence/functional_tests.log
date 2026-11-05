@@ -1,0 +1,26 @@
+# 기능 테스트 실행 시각: 2026-11-04T16:54:04
+[T-01] PASS | FastAPI 헬스 | 기대=200 / ok | 실제=200 / {'status': 'ok'}
+[T-02a] PASS | 동기 추론 (angular_leaf_spot) | 기대=200 / 정답=angular_leaf_spot | 실제=200 / angular_leaf_spot (1.000)
+[T-02b] PASS | 동기 추론 (bean_rust) | 기대=200 / 정답=bean_rust | 실제=200 / bean_rust (0.998)
+[T-02c] PASS | 동기 추론 (healthy) | 기대=200 / 정답=healthy | 실제=200 / healthy (1.000)
+[T-03] PASS | 비동기 접수 | 기대=202 / job_id / queued / check_url | 실제=202 / job_id=264 / queued / /api/async/jobs/264/
+[T-04] PASS | 비동기 완료 | 기대=200 / done / 정답=bean_rust | 실제=status=done / bean_rust / cache_hit=False
+[T-05] PASS | Redis 연결 | 기대=PONG | 실제=PONG
+[T-06] PASS | DB 기록 | 기대=id=264, done | 실제=264 | done   | artifacts/m3_full_aug_light | bean_rust  | 0.9946 | f         |      2112.65
+[T-07] PASS | 불량 입력(.txt) | 기대=400 | 실제=sync 400 {'detail': '올바른 이미지 파일이 아닙니다.'} / async 400
+[T-08] PASS | 없는 작업번호 | 기대=404 | 실제=404 {'detail': '해당 작업이 없습니다.'}
+[T-09] PASS | 캐시 반복 | 기대=MISS → HIT | 실제=cache_hit: False → True / inference_ms: 18.5 → None
+[T-10] PASS | 용량 초과(5MB+1) | 기대=413 | 실제=sync 413 / async 413
+... worker 정지 시험
+[T-11] PASS | Worker 미실행 | 기대=접수 202, 상태 queued 유지 | 실제=202, 5초 뒤 상태=queued, DB=265|queued
+[T-11b] PASS | Worker 재시작 후 처리 | 기대=done(관찰 결과를 그대로 기록) | 실제=status=done / angular_leaf_spot
+... redis 정지 시험
+[T-12] PASS | Redis 장애: 비동기 접수 | 기대=503 + failed 행 기록 | 실제=503 (20.1s) 작업 큐 등록 실패: Redis 연결을 확인하세요. / DB: 266|failed|작업 큐 등록 실패: Redis 연결을 확인하세요.
+[T-13] PASS | Redis 장애: 동기 폴백 | 기대=200 (캐시 없이 추론) | 실제=200 / bean_rust / cache_hit=False
+[T-14] PASS | Redis 복구 후 비동기 | 기대=202 → done | 실제=202 → done
+[T-15a] PASS | 화면/정적 파일 /vision/sync/ | 기대=200 | 실제=200
+[T-15b] PASS | 화면/정적 파일 /vision/async/ | 기대=200 | 실제=200
+[T-15c] PASS | 화면/정적 파일 /docs | 기대=200 | 실제=200
+[T-15d] PASS | 화면/정적 파일 /static/style.css | 기대=200 | 실제=200
+[T-16] PASS | 모의(mock) 테스트 — 로컬 | 기대=4 passed | 실제=4 passed, 1 warning in 0.57s
+[T-17] PASS | 모의(mock) 테스트 — 컨테이너 | 기대=4 passed | 실제=4 passed, 1 warning in 0.60s

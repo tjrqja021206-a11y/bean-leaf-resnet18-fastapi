@@ -1,0 +1,75 @@
+{
+  "base_model": "microsoft/resnet-18",
+  "classes": [
+    "angular_leaf_spot",
+    "bean_rust",
+    "healthy"
+  ],
+  "train_count": 1034,
+  "val_count": 133,
+  "best_val_accuracy": 1.0,
+  "best_epoch": 4,
+  "history": [
+    {
+      "epoch": 1,
+      "loss": 0.3857,
+      "val_accuracy": 0.985
+    },
+    {
+      "epoch": 2,
+      "loss": 0.171,
+      "val_accuracy": 0.9624
+    },
+    {
+      "epoch": 3,
+      "loss": 0.1135,
+      "val_accuracy": 0.9699
+    },
+    {
+      "epoch": 4,
+      "loss": 0.127,
+      "val_accuracy": 1.0
+    },
+    {
+      "epoch": 5,
+      "loss": 0.0883,
+      "val_accuracy": 0.985
+    },
+    {
+      "epoch": 6,
+      "loss": 0.0552,
+      "val_accuracy": 0.9699
+    },
+    {
+      "epoch": 7,
+      "loss": 0.0507,
+      "val_accuracy": 0.985
+    },
+    {
+      "epoch": 8,
+      "loss": 0.0474,
+      "val_accuracy": 0.9774
+    },
+    {
+      "epoch": 9,
+      "loss": 0.0657,
+      "val_accuracy": 0.985
+    },
+    {
+      "epoch": 10,
+      "loss": 0.0389,
+      "val_accuracy": 0.9925
+    }
+  ],
+  "settings": {
+    "augment": "light",
+    "seed": 44,
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.0001,
+    "freeze_backbone": false,
+    "num_workers": 4
+  },
+  "elapsed_sec": 30.4,
+  "device": "cuda"
+}

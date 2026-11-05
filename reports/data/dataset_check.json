@@ -1,0 +1,19 @@
+{
+  "counts": {
+    "train/angular_leaf_spot": 345,
+    "train/bean_rust": 348,
+    "train/healthy": 341,
+    "val/angular_leaf_spot": 44,
+    "val/bean_rust": 45,
+    "val/healthy": 44,
+    "test/angular_leaf_spot": 43,
+    "test/bean_rust": 43,
+    "test/healthy": 42
+  },
+  "stray_non_image_files": [],
+  "total_images": 1295,
+  "unique_hashes": 1295,
+  "exact_duplicate_groups": 0,
+  "cross_split_duplicate_groups": 0,
+  "duplicate_examples": []
+}

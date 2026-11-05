@@ -1,0 +1,49 @@
+{
+  "split": "test",
+  "accuracy": 0.9453,
+  "correct": 121,
+  "total": 128,
+  "classes": [
+    "angular_leaf_spot",
+    "bean_rust",
+    "healthy"
+  ],
+  "confusion_matrix": [
+    [
+      42,
+      1,
+      0
+    ],
+    [
+      3,
+      39,
+      1
+    ],
+    [
+      0,
+      2,
+      40
+    ]
+  ],
+  "per_class": {
+    "angular_leaf_spot": {
+      "precision": 0.9333,
+      "recall": 0.9767,
+      "f1": 0.9545,
+      "support": 43
+    },
+    "bean_rust": {
+      "precision": 0.9286,
+      "recall": 0.907,
+      "f1": 0.9176,
+      "support": 43
+    },
+    "healthy": {
+      "precision": 0.9756,
+      "recall": 0.9524,
+      "f1": 0.9639,
+      "support": 42
+    }
+  },
+  "evaluated_at": "2026-11-04 15:18:23"
+}

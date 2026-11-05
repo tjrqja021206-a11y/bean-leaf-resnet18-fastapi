@@ -1,0 +1,194 @@
+{
+  "m1_head_only": {
+    "model_path": "artifacts/m1_head_only",
+    "classes": [
+      "angular_leaf_spot",
+      "bean_rust",
+      "healthy"
+    ],
+    "confusion_matrix": [
+      [
+        30,
+        7,
+        6
+      ],
+      [
+        13,
+        23,
+        7
+      ],
+      [
+        0,
+        3,
+        39
+      ]
+    ],
+    "correct": 92,
+    "total": 128,
+    "accuracy": 0.7188,
+    "per_class": {
+      "angular_leaf_spot": {
+        "precision": 0.6977,
+        "recall": 0.6977,
+        "f1": 0.6977,
+        "support": 43
+      },
+      "bean_rust": {
+        "precision": 0.697,
+        "recall": 0.5349,
+        "f1": 0.6053,
+        "support": 43
+      },
+      "healthy": {
+        "precision": 0.75,
+        "recall": 0.9286,
+        "f1": 0.8298,
+        "support": 42
+      }
+    }
+  },
+  "m2_full": {
+    "model_path": "artifacts/m2_full",
+    "classes": [
+      "angular_leaf_spot",
+      "bean_rust",
+      "healthy"
+    ],
+    "confusion_matrix": [
+      [
+        43,
+        0,
+        0
+      ],
+      [
+        2,
+        41,
+        0
+      ],
+      [
+        0,
+        2,
+        40
+      ]
+    ],
+    "correct": 124,
+    "total": 128,
+    "accuracy": 0.9688,
+    "per_class": {
+      "angular_leaf_spot": {
+        "precision": 0.9556,
+        "recall": 1.0,
+        "f1": 0.9773,
+        "support": 43
+      },
+      "bean_rust": {
+        "precision": 0.9535,
+        "recall": 0.9535,
+        "f1": 0.9535,
+        "support": 43
+      },
+      "healthy": {
+        "precision": 1.0,
+        "recall": 0.9524,
+        "f1": 0.9756,
+        "support": 42
+      }
+    }
+  },
+  "m3_full_aug_light": {
+    "model_path": "artifacts/m3_full_aug_light",
+    "classes": [
+      "angular_leaf_spot",
+      "bean_rust",
+      "healthy"
+    ],
+    "confusion_matrix": [
+      [
+        41,
+        2,
+        0
+      ],
+      [
+        2,
+        41,
+        0
+      ],
+      [
+        0,
+        1,
+        41
+      ]
+    ],
+    "correct": 123,
+    "total": 128,
+    "accuracy": 0.9609,
+    "per_class": {
+      "angular_leaf_spot": {
+        "precision": 0.9535,
+        "recall": 0.9535,
+        "f1": 0.9535,
+        "support": 43
+      },
+      "bean_rust": {
+        "precision": 0.9318,
+        "recall": 0.9535,
+        "f1": 0.9425,
+        "support": 43
+      },
+      "healthy": {
+        "precision": 1.0,
+        "recall": 0.9762,
+        "f1": 0.988,
+        "support": 42
+      }
+    }
+  },
+  "m4_full_aug_medium": {
+    "model_path": "artifacts/m4_full_aug_medium",
+    "classes": [
+      "angular_leaf_spot",
+      "bean_rust",
+      "healthy"
+    ],
+    "confusion_matrix": [
+      [
+        41,
+        2,
+        0
+      ],
+      [
+        2,
+        41,
+        0
+      ],
+      [
+        0,
+        0,
+        42
+      ]
+    ],
+    "correct": 124,
+    "total": 128,
+    "accuracy": 0.9688,
+    "per_class": {
+      "angular_leaf_spot": {
+        "precision": 0.9535,
+        "recall": 0.9535,
+        "f1": 0.9535,
+        "support": 43
+      },
+      "bean_rust": {
+        "precision": 0.9535,
+        "recall": 0.9535,
+        "f1": 0.9535,
+        "support": 43
+      },
+      "healthy": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 42
+      }
+    }
+  }
+}

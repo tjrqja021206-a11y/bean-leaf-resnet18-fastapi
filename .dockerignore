@@ -1,0 +1,12 @@
+# local virtual environments and private/runtime data
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.git/
+.env
+dataset/
+artifacts/
+media/
+*.db
+*.zip

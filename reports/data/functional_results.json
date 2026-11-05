@@ -1,0 +1,186 @@
+[
+  {
+    "id": "T-01",
+    "item": "FastAPI 헬스",
+    "procedure": "GET /health",
+    "expected": "200 / ok",
+    "actual": "200 / {'status': 'ok'}",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-02a",
+    "item": "동기 추론 (angular_leaf_spot)",
+    "procedure": "POST /api/sync/classify/ (angular_leaf_spot_test.13.jpg)",
+    "expected": "200 / 정답=angular_leaf_spot",
+    "actual": "200 / angular_leaf_spot (1.000)",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-02b",
+    "item": "동기 추론 (bean_rust)",
+    "procedure": "POST /api/sync/classify/ (bean_rust_test.13.jpg)",
+    "expected": "200 / 정답=bean_rust",
+    "actual": "200 / bean_rust (0.998)",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-02c",
+    "item": "동기 추론 (healthy)",
+    "procedure": "POST /api/sync/classify/ (healthy_test.13.jpg)",
+    "expected": "200 / 정답=healthy",
+    "actual": "200 / healthy (1.000)",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-03",
+    "item": "비동기 접수",
+    "procedure": "POST /api/async/classify/ (bean_rust_test.14.jpg)",
+    "expected": "202 / job_id / queued / check_url",
+    "actual": "202 / job_id=264 / queued / /api/async/jobs/264/",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-04",
+    "item": "비동기 완료",
+    "procedure": "GET /api/async/jobs/264/ (폴링)",
+    "expected": "200 / done / 정답=bean_rust",
+    "actual": "status=done / bean_rust / cache_hit=False",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-05",
+    "item": "Redis 연결",
+    "procedure": "docker compose exec redis redis-cli ping",
+    "expected": "PONG",
+    "actual": "PONG",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-06",
+    "item": "DB 기록",
+    "procedure": "image_jobs id=264 조회",
+    "expected": "id=264, done",
+    "actual": "264 | done   | artifacts/m3_full_aug_light | bean_rust  | 0.9946 | f         |      2112.65",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-07",
+    "item": "불량 입력(.txt)",
+    "procedure": "sync·async에 텍스트 파일 업로드",
+    "expected": "400",
+    "actual": "sync 400 {'detail': '올바른 이미지 파일이 아닙니다.'} / async 400",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-08",
+    "item": "없는 작업번호",
+    "procedure": "GET /api/async/jobs/999999/",
+    "expected": "404",
+    "actual": "404 {'detail': '해당 작업이 없습니다.'}",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-09",
+    "item": "캐시 반복",
+    "procedure": "동일 파일 2회 (healthy_test.15.jpg), 캐시 비운 뒤",
+    "expected": "MISS → HIT",
+    "actual": "cache_hit: False → True / inference_ms: 18.5 → None",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-10",
+    "item": "용량 초과(5MB+1)",
+    "procedure": "sync·async에 5MB+1바이트 업로드",
+    "expected": "413",
+    "actual": "sync 413 / async 413",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-11",
+    "item": "Worker 미실행",
+    "procedure": "worker 정지 후 비동기 접수, 5초 대기",
+    "expected": "접수 202, 상태 queued 유지",
+    "actual": "202, 5초 뒤 상태=queued, DB=265|queued",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-11b",
+    "item": "Worker 재시작 후 처리",
+    "procedure": "같은 job_id=265 재조회",
+    "expected": "done(관찰 결과를 그대로 기록)",
+    "actual": "status=done / angular_leaf_spot",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-12",
+    "item": "Redis 장애: 비동기 접수",
+    "procedure": "redis 정지 후 POST /api/async/classify/",
+    "expected": "503 + failed 행 기록",
+    "actual": "503 (20.1s) 작업 큐 등록 실패: Redis 연결을 확인하세요. / DB: 266|failed|작업 큐 등록 실패: Redis 연결을 확인하세요.",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-13",
+    "item": "Redis 장애: 동기 폴백",
+    "procedure": "redis 정지 상태에서 POST /api/sync/classify/",
+    "expected": "200 (캐시 없이 추론)",
+    "actual": "200 / bean_rust / cache_hit=False",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-14",
+    "item": "Redis 복구 후 비동기",
+    "procedure": "redis 재시작 후 비동기 접수·완료",
+    "expected": "202 → done",
+    "actual": "202 → done",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-15a",
+    "item": "화면/정적 파일 /vision/sync/",
+    "procedure": "GET /vision/sync/",
+    "expected": "200",
+    "actual": "200",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-15b",
+    "item": "화면/정적 파일 /vision/async/",
+    "procedure": "GET /vision/async/",
+    "expected": "200",
+    "actual": "200",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-15c",
+    "item": "화면/정적 파일 /docs",
+    "procedure": "GET /docs",
+    "expected": "200",
+    "actual": "200",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-15d",
+    "item": "화면/정적 파일 /static/style.css",
+    "procedure": "GET /static/style.css",
+    "expected": "200",
+    "actual": "200",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-16",
+    "item": "모의(mock) 테스트 — 로컬",
+    "procedure": "python -m pytest -q",
+    "expected": "4 passed",
+    "actual": "4 passed, 1 warning in 0.57s",
+    "verdict": "PASS"
+  },
+  {
+    "id": "T-17",
+    "item": "모의(mock) 테스트 — 컨테이너",
+    "procedure": "docker compose exec web pytest -q tests/test_api.py",
+    "expected": "4 passed",
+    "actual": "4 passed, 1 warning in 0.60s",
+    "verdict": "PASS"
+  }
+]

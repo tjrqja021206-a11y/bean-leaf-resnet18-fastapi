@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}비동기식 이미지 분류{% endblock %}
+{% block content %}
+<section class="panel"><h2>비동기식: 작업 ID를 먼저 받고 결과는 나중에 확인합니다</h2>
+<input id="image" type="file" accept="image/jpeg,image/png,image/webp">
+<button id="send">Celery 작업 등록</button><button id="cancel">상태조회 중지</button>
+<img id="preview" class="preview" hidden>
+<p id="state">이미지를 선택하세요.</p><pre id="output">{}</pre></section>
+<script>
+const fileEl=document.getElementById('image');let cancelled=false;
+fileEl.onchange=()=>{const f=fileEl.files[0];if(f){const p=document.getElementById('preview');p.src=URL.createObjectURL(f);p.hidden=false;}};
+document.getElementById('cancel').onclick=()=>{cancelled=true;document.getElementById('state').textContent='상태 조회만 중지했습니다(워커 작업은 계속됩니다).';};
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+document.getElementById('send').onclick=async()=>{
+ const file=fileEl.files[0];if(!file){alert('이미지를 선택하세요');return;}
+ const button=document.getElementById('send');button.disabled=true;cancelled=false;
+ const state=document.getElementById('state');const out=document.getElementById('output');
+ const form=new FormData();form.append('image',file);const started=performance.now();
+ state.textContent='작업 등록 중...';
+ try{
+   const res=await fetch('/api/async/classify/',{method:'POST',body:form});
+   const data=await res.json();out.textContent=JSON.stringify(data,null,2);
+   if(!res.ok){state.textContent=`등록 실패 HTTP ${res.status}`;return;}
+   const accepted=Math.round(performance.now()-started);
+   state.textContent=`접수 완료: ${accepted}ms, job_id=${data.job_id}`;
+   for(let i=0;i<60 && !cancelled;i++){
+     await sleep(1000);if(cancelled)break;
+     const s=await fetch(data.check_url);const job=await s.json();
+     out.textContent=JSON.stringify(job,null,2);
+     state.textContent=`접수 ${accepted}ms / 전체 ${Math.round(performance.now()-started)}ms / 상태 ${job.status}`;
+     if(['done','failed'].includes(job.status))break;
+   }
+ }catch(err){state.textContent=`요청 실패: ${err}`;}finally{button.disabled=false;}
+};
+</script>
+{% endblock %}

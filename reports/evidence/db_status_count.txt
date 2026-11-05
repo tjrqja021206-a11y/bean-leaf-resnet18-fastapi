@@ -1,0 +1,5 @@
+status | count 
+--------+-------
+ done   |    26
+ failed |     1
+(2 rows)

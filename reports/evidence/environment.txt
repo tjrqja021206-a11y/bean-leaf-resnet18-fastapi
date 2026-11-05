@@ -1,0 +1,27 @@
+## OS
+Ubuntu 26.04.1 LTS
+6.18.54.1-microsoft-standard-WSL2
+
+## CPU/RAM
+CPU(s):                                  20
+Model name:                              12th Gen Intel(R) Core(TM) i7-12700
+total        used        free      shared  buff/cache   available
+Mem:            15Gi       2.3Gi       9.1Gi       416Mi       4.7Gi        13Gi
+
+## GPU
+NVIDIA GeForce RTX 3060, 12288 MiB, 610.88
+
+## Python (학습용 venv)
+Python 3.11.17
+torch 2.15.0+cu132 transformers 4.57.6 fastapi 0.162.0 celery 5.6.3 sqlalchemy 2.1.8 redis-py 6.4.0
+
+## Docker
+Docker version 29.9.2, build a82e528
+Docker Compose version v5.6.1
+
+
+## 컨테이너 Python/torch (추론은 이 환경에서 CPU로 수행)
+3.11.18 torch 2.5.1+cpu cuda False
+
+## 서비스 모델 (.env)
+MODEL_PATH=artifacts/m3_full_aug_light

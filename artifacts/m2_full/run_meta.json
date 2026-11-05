@@ -1,0 +1,16 @@
+{
+  "settings": {
+    "augment": "none",
+    "seed": 42,
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.0001,
+    "freeze_backbone": false
+  },
+  "note": "제공 finetune.py · Full Fine-tuning(B)",
+  "recorded": "실행 명령 기준으로 사후 기록",
+  "order": 2,
+  "title": "② Full",
+  "short": "+ 전체 가중치 학습",
+  "parent": "m1_head_only"
+}

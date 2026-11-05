@@ -4,6 +4,7 @@ __pycache__/
 .env
 dataset/
 artifacts/*
+!artifacts/m[0-9]_*/
 !artifacts/.gitkeep
 media/jobs/*
 !media/jobs/.gitkeep

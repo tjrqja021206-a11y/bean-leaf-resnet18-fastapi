@@ -1,6 +1,59 @@
 # 콩잎 분류 AI 서비스 (ResNet18 · FastAPI · Celery · Redis · PostgreSQL)
 
-콩잎 사진을 `angular_leaf_spot` / `bean_rust` / `healthy` 3가지로 분류한다. 같은 모델을 **동기 API**와 **비동기(Celery) API**로 제공하고, Redis 캐시와 PostgreSQL 작업 이력을 갖춘다. 동기·비동기를 같은 조건으로 비교하는 **GUI 콘솔**(`demo.py`)이 있다.
+> ResNet-18을 Fine-tuning해 콩잎 병해 3종을 분류하고, 같은 모델을 **동기 API**와 **비동기(Celery) API**로 서비스한 뒤 두 방식의 성능을 같은 조건에서 직접 측정·비교한 프로젝트
+
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-HF_Transformers-EE4C2C?logo=pytorch&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Celery](https://img.shields.io/badge/Celery-37814A?logo=celery&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker_Compose-2496ED?logo=docker&logoColor=white)
+
+## 한눈에 보기
+
+| 항목 | 결과 |
+|---|---|
+| 분류 대상 | 콩잎 사진 → `angular_leaf_spot` / `bean_rust` / `healthy` |
+| Test 정확도 | Head-only **71.9%** → 전체 Fine-tuning **96.9%** (+25.0%p, 128장) |
+| 서비스 구성 | Docker Compose 4개 컨테이너 (FastAPI · Celery Worker · Redis · PostgreSQL) |
+| 응답시간 (중앙값) | 동기 22.6ms · 캐시 HIT 2.2ms · 비동기 접수 8.5ms / 최종 63.4ms |
+| 검증 | 실환경 기능 시험 **23건 PASS** (worker 중단·복구 포함) + pytest 모의 테스트 |
+
+## 시스템 구조
+
+![동기·비동기 처리 흐름](reports/figures/architecture_flow.png)
+
+- **동기:** 업로드 → 형식 검증 → Redis 캐시 조회(key = 이미지 sha256 + 모델) → MISS면 ResNet18 추론 → 결과 저장 후 200 응답
+- **비동기:** 업로드 → PostgreSQL에 작업 등록(`queued`) → Redis 브로커 → Celery Worker 추론 → `done` 기록, 클라이언트는 `job_id`로 상태 조회
+
+## 모델 실험
+
+![모델별 정확도](reports/figures/model_accuracy.png)
+
+BASE(`microsoft/resnet-18`)에서 한 번에 한 가지씩 바꿔 4개 모델을 비교했다. 분류 헤드만 학습한 ①에서 전체 가중치를 학습한 ②로 바꾸자 정확도가 크게 올랐고, 데이터 증강(③·④)은 1~2장 차이로 사실상 동률이었다. 서비스에는 Validation 최고 점수인 ③을 적용했다.
+
+## 화면
+
+| 비동기 분류 화면 | Swagger API 문서 |
+|---|---|
+| ![비동기 화면](reports/evidence/ui_async.png) | ![Swagger](reports/evidence/swagger.png) |
+
+## 내가 한 일
+
+- **모델 학습·평가:** 제공 학습 코드는 그대로 두고 증강 학습(`finetune_aug.py`)과 평가 스크립트를 추가해 4개 모델을 같은 Test 세트로 비교
+- **서비스 구현:** 동기·비동기 API, sha256 기반 Redis 캐시(TTL 600초), PostgreSQL 작업 이력, 업로드 검증(5MB, 실제 JPG/PNG/WEBP)
+- **비교 콘솔(`demo.py`):** 모델 선택 → 사진 선택 → 캐시·동시성 조건 설정 → 동기/비동기 결과를 나란히 보여 주는 단일 파일 GUI
+- **자동화:** 학습 → 평가 → 비교 → 더 좋을 때만 서비스 적용까지 한 번에 돌리는 CLI(`pipeline.py`, `run.sh`)
+- **측정·문서화:** 응답시간·동시 요청 측정 스크립트, 보고서 8종(`reports/`)
+
+## 배운 점
+
+- **비동기가 항상 빠르지는 않다.** 이 모델은 추론이 약 17ms로 짧아, 비동기는 접수만 빠르고 결과를 받기까지는 동기보다 오래 걸렸다(동시 20건: 동기 284.9ms vs 비동기 743.9ms). 비동기는 추론이 무겁거나 요청이 몰릴 때 의미가 있다.
+- **비교 실험은 한 번에 하나만 바꿔야 한다.** ①→②는 전체 학습 외에 에폭·배치·학습률도 함께 달라져 "전체 학습"만의 효과를 분리할 수 없었다. ②→③④는 증강만 바꿔 공정하게 비교했다.
+- **작은 Test 세트에서 1~2장 차이는 의미 있는 차이가 아니다.** 그래서 ②③④를 동률로 보고, 모델 선택 기준(Validation)을 미리 정해 두었다.
+
+---
 
 ## 1. 폴더 구조
 
@@ -158,5 +211,5 @@ python scripts/measure_timings.py     # 동기/비동기 × 캐시 MISS/HIT 응�
 ## 11. 제출 및 보안
 
 - `.env`, 비밀번호, API 키는 저장소에 올리지 않는다(`.gitignore`). DB 계정 `vision_user/vision_pass`는 `compose.yaml`의 **학습용 값**이므로 실제 서비스에 쓰지 않는다.
-- `dataset/`, 모델 가중치(`artifacts/`), `media/jobs/`는 용량·권한 때문에 저장소에서 제외한다. 확보·배치는 3절을 따른다.
+- `dataset/`과 `media/jobs/`는 용량·권한 때문에 저장소에서 제외한다. 확보·배치는 3절을 따른다. 학습된 모델 4개(`artifacts/*/model.safetensors`)는 바로 실행할 수 있도록 저장소에 포함했다.
 - 서비스(8000)와 콘솔(8200)은 `127.0.0.1`에만 바인딩되며 인증이 없다(로컬 학습용).
